@@ -1,6 +1,6 @@
 # ProManager
 ## Introduction
-ProManager.com is a project manager web app. It helps to collaborate and work together on a project 
+TaskItt is a project manager web app. It helps to collaborate and work together on a project 
 through the directions and categorizations by the project admin. 
 
 ## Users
