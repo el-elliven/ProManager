@@ -31,5 +31,5 @@ The system has varied kinds of users with varied roles. They include the Admin, 
 - Users must have internet
 
 ## Proposed Solution
-ProManager is solving the idea that teams can easily collaborate on a project and be able to track their own progress till completion.
+TaskItt is solving the idea that teams can easily collaborate on a project and be able to track their own progress till completion.
 The tech used enables collaborations even on mobile
