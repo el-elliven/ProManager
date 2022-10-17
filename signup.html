@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./signup.css">
+    <script src="https://kit.fontawesome.com/2d8fe98e97.js" crossorigin="anonymous"></script>
+    <title>Sign up page</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2><a href="./landingpage.html" class="logo">P-MerG</a></h2>
+            <div class="navbar">
+              <a href="./landingpage.html" class="navbar_link">Home</a>
+              <a href="./boards.html" class="navbar_link">Boards</a>
+              <a href="./profile.html" class="navbar_link">Profile</a>
+              <a href="./login.html" class="navbar_link">Login <i class="fa-sharp fa-solid fa-caret-down"></i></a>
+              <a href="./student.html" class="navbar_link">Classrooms</a>
+            </div>
+        </header>
+        <form action="" id="createAccount">
+            <h1 class="form_title">Create Account</h1>
+            <div class="form_input-group">
+                <input type="text" class="form_input" id="signupUsername" autofocus placeholder="Username">
+
+                <input type="text" class="form_input" id="email" autofocus placeholder="Email Address">
+    
+                <input type="password" class="form_input" id="pword" autofocus placeholder="Password">
+    
+                <input type="password" class="form_input" id="cpword" autofocus placeholder="Confirm Password">
+            </div>
+
+            <!-- sign up buttons -->
+            <button class="register" type="button" name="signUp" id="submitSignup">Sign Up</button>
+            <!-- <p>Or Sign Up with</p>
+            <button class="form__button" type="submit" id="google_auth">Sign Up With Google</button>
+            <button class="form__button" type="submit" id="facebook_auth">Sign Up With Facebook</button>
+            <button class="form__button" type="submit" id="twitter_auth">Sign Up With Twitter</button>
+            <button class="form__button" type="submit" id="linkedin_auth">Sign Up With GitHub</button>
+         -->
+            <!-- login if already have an account -->
+            <p class="form__text">
+                Already have an account?<a href="./login.html" id="loginLink" class="form__link"> Login here</a>
+            </p>
+        </form>        
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+        import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCq18SQTbZg59xu8TK5RQaiW9VFzafD5b4",
+          authDomain: "p-merg2-74700.firebaseapp.com",
+          projectId: "p-merg2-74700",
+          storageBucket: "p-merg2-74700.appspot.com",
+          messagingSenderId: "897038781923",
+          appId: "1:897038781923:web:f689f8b11feedd9b9464d6"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const database = getDatabase(app);
+
+        submitSignup.addEventListener('click', (e)=>{
+
+            var username = document.getElementById("signupUsername").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("pword").value;
+            var cpassword = document.getElementById("cpword").value;
+        
+            createUserWithEmailAndPassword(auth, email, password, username, cpassword)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // ...
+
+                    set(ref(database, 'users/' + user.uid), {
+                        username: username,
+                        email: email
+
+                        })
+                        .then(() => {
+                        // Data saved successfully!
+                        alert('user created');
+                        })
+                        .catch((error) => {
+                        // The write failed...
+                        alert(error);
+                        });    
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                    alert(errorMessage);
+                });
+        });
+
+      </script>
+<script type="module" src="./fb_auth.js"></script>
+</body>
+</html>
+            
